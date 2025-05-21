@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
+from flask_cors import CORS
 from config import Config
 from models import db, Product
 from schemas import ProductSchema
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Habilitar CORS para todos los endpoints
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 db.init_app(app)
 migrate = Migrate(app, db)
